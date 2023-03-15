@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use crate::models::ApiError;
+use crate::error::ApiError;
 
 #[async_trait]
 pub trait AbstractUseCase<R, T> {
