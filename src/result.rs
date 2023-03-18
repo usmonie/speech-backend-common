@@ -5,7 +5,6 @@ pub const API_ERROR_NOT_FOUND_CODE: u32 = 5;
 pub const API_ERROR_ALREADY_EXISTS_CODE: u32 = 6;
 pub const API_ERROR_UNAUTHENTICATED_CODE: u32 = 16;
 
-#[derive(Debug)]
 pub struct ApiError {
     pub code: u32,
     pub message: String,
@@ -56,13 +55,18 @@ impl ApiError {
 /// `Result` is a type that represents either success ([`Ok`]) or failure ([`Err`]).
 ///
 /// See the [module documentation](self) for details.
-#[derive(Copy, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
-enum ApiResult<R> {
+pub enum ApiResult<R> {
     /// Contains the success value
-    #[lang = "Ok"]
     Ok(R),
 
     /// Contains the error value
-    #[lang = "Err"]
     Err(ApiError)
+}
+
+unsafe impl <R> Send for ApiResult<R> {
+
+}
+
+unsafe impl <R> Sync for ApiResult<R> {
+
 }

@@ -1,3 +1,3 @@
 pub mod domain;
-pub mod error;
 pub mod db;
+pub mod result;
