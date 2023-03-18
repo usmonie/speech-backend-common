@@ -1,8 +1,8 @@
 use async_trait::async_trait;
 
-use crate::result::ApiError;
+use crate::result::ApiResult;
 
 #[async_trait]
 pub trait AbstractUseCase<R, T> {
-    async fn execute(&self, request: R) -> Result<T, ApiError>;
+    async fn execute(&self, request: R) -> ApiResult<T>;
 }
