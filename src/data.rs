@@ -2,8 +2,8 @@ use rsmgclient::Connection;
 use sled::Db;
 
 pub struct DataHolder {
-    memgragh: Connection,
-    sled: Db
+    pub memgragh: Connection,
+    pub sled: Db
 }
 
 impl DataHolder {
