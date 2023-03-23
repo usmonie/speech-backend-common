@@ -71,7 +71,7 @@ unsafe impl <R> Send for ApiResult<R> {}
 unsafe impl <R> Sync for ApiResult<R> {}
 
 impl <R> ApiResult<R> {
-    fn is_ok(&self) -> bool {
+    pub fn is_ok(&self) -> bool {
         matches!(&self, Ok(_))
     }
 }
