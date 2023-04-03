@@ -1,9 +1,10 @@
+use async_trait::async_trait;
 use rsmgclient::{Connection, ConnectParams};
 use sled::{Config, Db};
 
 pub struct DataHolder {
     pub memgragh: Connection,
-    pub sled: Db
+    pub sled: Db,
 }
 
 impl DataHolder {
@@ -17,3 +18,7 @@ impl DataHolder {
         }
     }
 }
+
+unsafe impl Send for DataHolder {}
+
+unsafe impl Sync for DataHolder {}

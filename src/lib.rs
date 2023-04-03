@@ -1,8 +1,8 @@
-pub mod domain;
-pub mod data;
-
 use std::error::Error;
 use std::fmt;
+
+pub mod domain;
+pub mod data;
 
 pub const API_ERROR_NOT_FOUND_CODE: u32 = 5;
 pub const API_ERROR_ALREADY_EXISTS_CODE: u32 = 6;
@@ -15,6 +15,7 @@ pub struct ApiError {
 }
 
 unsafe impl Send for ApiError {}
+
 unsafe impl Sync for ApiError {}
 
 impl fmt::Display for ApiError {
@@ -63,13 +64,14 @@ pub enum ApiResult<R> {
     Ok(R),
 
     /// Contains the error value
-    Err(ApiError)
+    Err(ApiError),
 }
 
-unsafe impl <R> Send for ApiResult<R> {}
-unsafe impl <R> Sync for ApiResult<R> {}
+unsafe impl<R> Send for ApiResult<R> {}
 
-impl <R> ApiResult<R> {
+unsafe impl<R> Sync for ApiResult<R> {}
+
+impl<R> ApiResult<R> {
     pub fn is_ok(&self) -> bool {
         matches!(&self, ApiResult::Ok(_))
     }
