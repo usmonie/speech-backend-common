@@ -1,6 +1,5 @@
 pub mod domain;
 pub mod data;
-pub mod result;
 
 use std::error::Error;
 use std::fmt;
@@ -72,6 +71,6 @@ unsafe impl <R> Sync for ApiResult<R> {}
 
 impl <R> ApiResult<R> {
     pub fn is_ok(&self) -> bool {
-        matches!(&self, Ok(_))
+        matches!(&self, ApiResult::Ok(_))
     }
 }

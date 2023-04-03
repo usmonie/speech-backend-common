@@ -8,5 +8,5 @@ edition = "2021"
 [dependencies]
 async-trait = "0.1.66"
 
-rsmgclient = "2.0.1"
+rsmgclient = "2.0.0"
 sled = "0.34.7"

@@ -1,5 +1,5 @@
-use rsmgclient::Connection;
-use sled::Db;
+use rsmgclient::{Connection, ConnectParams};
+use sled::{Config, Db};
 
 pub struct DataHolder {
     pub memgragh: Connection,
@@ -7,7 +7,13 @@ pub struct DataHolder {
 }
 
 impl DataHolder {
-    fn new() -> Self {
-        Self { memgragh, sled }
+    pub fn new(params: ConnectParams, sled_path: &str) -> Self {
+        let config = Config::new().temporary(true);
+        let sled = config.open().unwrap();
+
+        Self {
+            memgragh: Connection::connect(&params).unwrap(),
+            sled,
+        }
     }
 }
