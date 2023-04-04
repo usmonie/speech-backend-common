@@ -76,7 +76,7 @@ impl<R> ApiResult<R> {
         matches!(&self, ApiResult::Ok(_))
     }
 
-    pub fn and_then<U, F: FnOnce(T) -> Result<U, E>>(self, op: F) -> Result<U, E> {
+    pub fn and_then<U, F: FnOnce(T) -> ApiResult<U>>(self, op: F) -> ApiResult<U> {
         match self {
             Ok(t) => op(t),
             Err(e) => Err(e),
