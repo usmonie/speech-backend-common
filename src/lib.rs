@@ -1,5 +1,6 @@
 use std::error::Error;
 use std::fmt;
+use std::future::Future;
 
 pub mod domain;
 pub mod data;
@@ -77,6 +78,13 @@ impl<R> ApiResult<R> {
     }
 
     pub fn and_then<U, F: FnOnce(R) -> ApiResult<U>>(self, op: F) -> ApiResult<U> {
+        match self {
+            ApiResult::Ok(t) => op(t),
+            ApiResult::Err(e) => ApiResult::Err(e),
+        }
+    }
+
+    pub async fn async_and_then<U, F: FnOnce(R) -> dyn Future<Output=ApiResult<U>>>(self, op: F) -> ApiResult<U> {
         match self {
             ApiResult::Ok(t) => op(t),
             ApiResult::Err(e) => ApiResult::Err(e),
