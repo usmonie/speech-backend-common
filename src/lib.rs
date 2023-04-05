@@ -78,8 +78,8 @@ impl<R> ApiResult<R> {
 
     pub fn and_then<U, F: FnOnce(R) -> ApiResult<U>>(self, op: F) -> ApiResult<U> {
         match self {
-            Ok(t) => op(t),
-            Err(e) => Err(e),
+            ApiResult::Ok(t) => op(t),
+            ApiResult::Err(e) => ApiResult::Err(e),
         }
     }
 }
