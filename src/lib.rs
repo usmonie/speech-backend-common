@@ -84,10 +84,10 @@ impl<R> ApiResult<R> {
         }
     }
 
-    pub async fn async_and_then<U, F: FnOnce(R) -> dyn Future<Output=ApiResult<U>>>(self, op: F) -> ApiResult<U> {
+    pub async fn async_and_then<U, F: FnOnce(R) -> dyn Future<Output=ApiResult<U>>>(self, op: F) -> &dyn Future<Output=ApiResult<U>> {
         match self {
-            ApiResult::Ok(t) => op(t).await,
-            ApiResult::Err(e) => ApiResult::Err(e),
+            ApiResult::Ok(t) => op(t),
+            ApiResult::Err(e) => async { ApiResult::Err(e) }
         }
     }
 }
